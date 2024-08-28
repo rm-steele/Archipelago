@@ -1,3 +1,7 @@
+# (rm-steele) files and dirs i'm using for testing, if this survives into any PR please remove :)
+worlds/commented_refs
+################################################################################################
+
 .idea
 .vscode
 
