@@ -10,12 +10,10 @@ class SpelClassicItemData(NamedTuple):
     code: Optional[int] = None
     type: ItemClassification = ItemClassification.filler
 
-# TODO: re-order IDs so they're, you know, in order
 item_data_table_worlds = {
     "Jungle": SpelClassicItemData(spel_classic_base_id + 0, ItemClassification.progression),
     "Ice Caves": SpelClassicItemData(spel_classic_base_id + 1, ItemClassification.progression),
-    "Temple": SpelClassicItemData(spel_classic_base_id + 2, ItemClassification.progression),
-    "City of Gold": SpelClassicItemData(spel_classic_base_id + 12, ItemClassification.progression)
+    "Temple": SpelClassicItemData(spel_classic_base_id + 2, ItemClassification.progression)
 }
 
 item_data_table_chain = {
@@ -26,23 +24,23 @@ item_data_table_chain = {
 }
 
 item_data_table_useful = {
-    "Mattock": SpelClassicItemData(spel_classic_base_id + 13, ItemClassification.useful),
-    "Jetpack": SpelClassicItemData(spel_classic_base_id + 13, ItemClassification.useful),
-    "Bomb Box": SpelClassicItemData(spel_classic_base_id + 13, ItemClassification.useful),
-    "Kapala": SpelClassicItemData(spel_classic_base_id + 13, ItemClassification.useful),
-    "Paste": SpelClassicItemData(spel_classic_base_id + 13, ItemClassification.useful),
-    "Cape": SpelClassicItemData(spel_classic_base_id + 13, ItemClassification.useful),
-    "Shotgun": SpelClassicItemData(spel_classic_base_id + TODO, ItemClassification.useful)
+    "Mattock": SpelClassicItemData(spel_classic_base_id + 7, ItemClassification.useful),
+    "Jetpack": SpelClassicItemData(spel_classic_base_id + 8, ItemClassification.useful),
+    "Bomb Box": SpelClassicItemData(spel_classic_base_id + 9, ItemClassification.useful),
+    "Kapala": SpelClassicItemData(spel_classic_base_id + 10, ItemClassification.useful),
+    "Paste": SpelClassicItemData(spel_classic_base_id + 11, ItemClassification.useful),
+    "Cape": SpelClassicItemData(spel_classic_base_id + 12, ItemClassification.useful),
+    "Shotgun": SpelClassicItemData(spel_classic_base_id + 13, ItemClassification.useful)
 }
 
 item_data_table_filler = {
-    "Bomb Bag": SpelClassicItemData(spel_classic_base_id + 7),
-    "Rope Pile": SpelClassicItemData(spel_classic_base_id + 9),
-    "Compass": SpelClassicItemData(spel_classic_base_id + 10),
-    "Spectacles": SpelClassicItemData(spel_classic_base_id + TODO),
-    "Jordans": SpelClassicItemData(spel_classic_base_id + TODO),
-    "Web Gun": SpelClassicItemData(spel_classic_base_id + TODO),
-    "Box of Flares": SpelClassicItemData(spel_classic_base_id + TODO)
+    "Bomb Bag": SpelClassicItemData(spel_classic_base_id + 14),
+    "Rope Pile": SpelClassicItemData(spel_classic_base_id + 15),
+    "Compass": SpelClassicItemData(spel_classic_base_id + 16),
+    "Spectacles": SpelClassicItemData(spel_classic_base_id + 17),
+    "Jordans": SpelClassicItemData(spel_classic_base_id + 18),
+    "Web Gun": SpelClassicItemData(spel_classic_base_id + 19),
+    "Box of Flares": SpelClassicItemData(spel_classic_base_id + 20)
 }
 
 item_data_table = {
