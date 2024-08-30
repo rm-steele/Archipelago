@@ -1,4 +1,4 @@
-from typing import Optional, NamedTuple
+from typing import Optional, NamedTuple, List
 
 class SpelClassicRegionData(NamedTuple):
     exits: Optional[List[str]] = None
