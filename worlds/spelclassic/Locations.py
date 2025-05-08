@@ -1,7 +1,7 @@
 from typing import NamedTuple, Optional
 from BaseClasses import Location
 
-spel_classic_base_id = 0xC1A551C
+spel_classic_base_id = 1
 
 class SpelClassicLocation(Location):
     game = "Spelunky Classic"
@@ -11,7 +11,6 @@ class SpelClassicLocationData(NamedTuple):
     address: Optional[int] = None
 
 location_data_table_worlds = {
-    "Mines": SpelClassicLocationData("Mines", spel_classic_base_id + 0),
     "Jungle": SpelClassicLocationData("Jungle", spel_classic_base_id + 1),
     "Ice Caves": SpelClassicLocationData("Ice Caves", spel_classic_base_id + 2),
     "Temple": SpelClassicLocationData("Temple", spel_classic_base_id + 3)
@@ -22,6 +21,7 @@ location_data_table_kills = {
     "Spider": SpelClassicLocationData("Mines", spel_classic_base_id + 5),
     "Giant Spider": SpelClassicLocationData("Mines", spel_classic_base_id + 6),
     "Bat": SpelClassicLocationData("Mines", spel_classic_base_id + 7),
+    "Skeleton": SpelClassicLocationData("Mines", spel_classic_base_id + TODO),
     "Caveman": SpelClassicLocationData("Mines", spel_classic_base_id + 8),
     "Shopkeeper": SpelClassicLocationData("Mines", spel_classic_base_id + 9),
     "Scarab": SpelClassicLocationData("Mines", spel_classic_base_id + 10),
@@ -32,6 +32,8 @@ location_data_table_kills = {
     "Fire Frog": SpelClassicLocationData("Jungle", spel_classic_base_id + 14),
     "Monkey": SpelClassicLocationData("Jungle", spel_classic_base_id + 15),
     "Jiang Shi": SpelClassicLocationData("Jungle", spel_classic_base_id + 16),
+    "Piranha": SpelClassicLocationData("Jungle", spel_classic_base_id + TODO),
+    "Vampire": SpelClassicLocationData("Jungle", spel_classic_base_id + TODO),
 
     "Yeti": SpelClassicLocationData("Ice Caves", spel_classic_base_id + 17),
     "UFO": SpelClassicLocationData("Ice Caves", spel_classic_base_id + 18),
@@ -63,7 +65,7 @@ location_data_table_shop = {
     "Spectacles": SpelClassicLocationData("Mines", spel_classic_base_id + 39),
     "Machete": SpelClassicLocationData("Mines", spel_classic_base_id + 40),
     "Mattock": SpelClassicLocationData("Mines", spel_classic_base_id + 41),
-    "Web Gun": SpelClassicLocationData("Mines", spel_classic_base_id + 42),
+    "Web Cannon": SpelClassicLocationData("Mines", spel_classic_base_id + 42),
 }
 
 location_data_table_misc = {

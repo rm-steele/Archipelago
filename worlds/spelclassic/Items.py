@@ -1,7 +1,7 @@
 from typing import Optional, NamedTuple
 from BaseClasses import Item, ItemClassification
 
-spel_classic_base_id: int = 0xC1A551C
+spel_classic_base_id: int = 1
 
 class SpelClassicItem(Item):
     game = "Spelunky Classic"
@@ -39,7 +39,7 @@ item_data_table_filler = {
     "Compass": SpelClassicItemData(spel_classic_base_id + 16),
     "Spectacles": SpelClassicItemData(spel_classic_base_id + 17),
     "Jordans": SpelClassicItemData(spel_classic_base_id + 18),
-    "Web Gun": SpelClassicItemData(spel_classic_base_id + 19),
+    "Web Cannon": SpelClassicItemData(spel_classic_base_id + 19),
     "Box of Flares": SpelClassicItemData(spel_classic_base_id + 20)
 }
 

@@ -1,9 +1,10 @@
+# TODO: implement options
 from BaseClasses import Region, Location, Item, ItemClassification, Tutorial
 from worlds.AutoWorld import World, WebWorld
 from .Locations import location_data_table, SpelClassicLocation
 from .Items import SpelClassicItem, item_data_table, item_data_table_useful, item_data_table_filler, SpelClassicItem
 from .Regions import region_data_table
-
+from .Options import SpelClassicOptions
 
 class SpelClassicWeb(WebWorld):
     theme = "jungle"
@@ -22,9 +23,13 @@ class SpelClassicWorld(World):
     """TODO: Better docstring"""
     game = "Spelunky Classic"
     web = SpelClassicWeb()
-    topology_present = True
+    # i don't think i need this, i misunderstood its purpose
+    # topology_present = True
     location_name_to_id = {name: data.address for name, data in location_data_table.items()}
     item_name_to_id = {name: data.code for name, data in item_data_table.items()}
+    origin_region_name = "Mines"
+    options_dataclass = SpelClassicOptions
+    options: SpelClassicOptions
 
 
     def create_regions(self) -> None:
@@ -45,7 +50,9 @@ class SpelClassicWorld(World):
         # add victory event in the city of gold
         goal_location = SpelClassicLocation(self.player, "Victory", None, self.get_region("City of Gold"))
         goal_location.place_locked_item(SpelClassicItem("Victory", ItemClassification.progression, None, self.player))
-
+        # use self.multiworld.completion_condition and append this location to the city of gold region
+        self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
+        self.get_region("City of Gold").locations.append(goal_location)
 
     def create_item(self, name: str) -> "SpelClassicItem":
         item_class = item_data_table[name].type
@@ -67,6 +74,7 @@ class SpelClassicWorld(World):
 
         # remaining fill: add items until the amount of items added is the same as the number of locations
         for i in range(num_locations):
+        # TODO: generating a random float allows decimal numbers to be used as the denominator
             if self.random.randint(1, useful_items_fraction) == 1:
                 additions.append(self.create_item(self.random.choices(list(item_data_table_useful))[0])) # TODO: add weighting
             else:
