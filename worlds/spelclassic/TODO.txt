@@ -1,5 +1,6 @@
 options:
     - city of gold wincon: decide if you need to win the same run as you reach city of gold
     - score wincon: decide if you need to win while past the score threshold, or just to reach it
-re-do IDs
-integrate filler denominator option
+    - damselsanity?
+    - look into turnign filler_denom into FreeText to allow non-integers
+re-do IDs so they have a sense of organization

@@ -11,14 +11,14 @@ class Goal(Choice):
      - city_of_gold: Reach the City of Gold and then win the run.
      - scorerun: Reach the amount of money defined in "score".
      - shortcuts: Unlock all three shortcuts."""
-     display_name = "Goal"
-     option_olmec = 0
-     option_city_of_gold = 1
-     option_scorerun = 2
-     option_shortcuts = 3
-     alias_cog = 1
-     alias_all_shortcuts = 3
-     default = 1
+    display_name = "Goal"
+    option_olmec = 0
+    option_city_of_gold = 1
+    option_scorerun = 2
+    option_shortcuts = 3
+    alias_cog = 1
+    alias_all_shortcuts = 3
+    default = 1
 
 class Score(Range):
     """Sets the required amount of gold to achieve victory."""

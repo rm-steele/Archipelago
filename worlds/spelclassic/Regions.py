@@ -9,6 +9,6 @@ region_data_table = {
     "Mines": SpelClassicRegionData(["Jungle"]),
     "Jungle": SpelClassicRegionData(["Ice Caves"]),
     "Ice Caves": SpelClassicRegionData(["Temple"]),
-    "Temple": SpelClassicRegionData(["City of Gold"]),
-    "City of Gold": SpelClassicRegionData()
+    "Temple": SpelClassicRegionData(None),
+#    "City of Gold": SpelClassicRegionData()
 }
