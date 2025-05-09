@@ -1,7 +1,7 @@
 from BaseClasses import CollectionState
 from worlds.generic.Rules import set_rule
 
-def set_standard_rules(world: "SpelClassicWorld", player: int):
+def set_standard_rules(world, player: int):
 
     # regions
     set_rule(world.get_entrance("Mines -> Jungle"), lambda state: state.has("Jungle", player))

@@ -1,7 +1,10 @@
 from typing import Any
+
 from BaseClasses import Region, Location, Item, ItemClassification, Tutorial
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import set_rule
+from Fill import FillError
+
 from .Locations import location_data_table, SpelClassicLocation
 from .Items import SpelClassicItem, item_data_table, item_data_table_useful, item_data_table_filler, SpelClassicItem
 from .Regions import region_data_table
@@ -87,7 +90,7 @@ class SpelClassicWorld(World):
         num_locations = len(location_data_table)
         num_items = len(item_data_table)
         if num_items > num_locations:
-            raise FillError("uh nope you shouldn't have more items than locations how did you manage this?")
+            raise FillError(f"ERROR: {self.player_name} playing {self.game} has more items than locations!")
 
         # initial fill: put one copy of everything in
         for name, data in item_data_table.items():
