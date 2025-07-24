@@ -71,16 +71,16 @@ class RemoveOHKOTrap(Toggle):
     display_name = "Remove OHKO Trap"
 
 
-#class ItemSprites(OptionList):
-#    """Changes Item Sprites.  Does not affect gameplay
-#    Sprite Authors appear in the item description"""
-#    display_name = "Item Sprites"
-#    default = 0
-#    option_default = 0
-#    option_themed = 1
-#    option_chiny = 2
-#    option_ungrouped = 3
-#    option_lies = 4
+class TrapSprites(Choice):
+    """Changes Item Sprites.  Does not affect gameplay
+    Sprite Authors appear in the item description"""
+    display_name = "Item Sprites"
+    default = 0
+    option_All = 0
+    option_Evil = 1
+    option_Chiny = 2
+    option_Icons = 3
+    # option_lies = 4
 
 
 #class StartingWeapons(Choice):
@@ -131,7 +131,7 @@ AM2R_options: Dict[str, AssembleOptions] = {
     "RemoveEMPTrap": RemoveEMPTrap,
     "RemoveTouhouTrap": RemoveTouhouTrap,
     "RemoveOHKOTrap": RemoveOHKOTrap,
-    #  "Item Sprites": ItemSprites,
+    "TrapSprites": TrapSprites,
     #  "Starting Weapons": StartingWeapons,
     #  "Randomize Baby", RandomizeBaby
     #  "Area Rando": AreaRando,

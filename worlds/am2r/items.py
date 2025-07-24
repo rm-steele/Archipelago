@@ -134,6 +134,8 @@ item_table: Dict[str, ItemData] = {
     "OHKO Trap":                ItemData(108678026, "Trap", ItemClassification.trap, 25),
     "Touhou Trap":              ItemData(108678027, "Trap", ItemClassification.trap, 26),
     "Metroid":                  ItemData(108678025, "MacGuffin", ItemClassification.progression_skip_balancing, 19),
+  # "AP Item":                  ItemData(None     , "AP", ItemClassification.progression_skip_balancing, 100),
+  # "Unimportant Item":         ItemData(None     , "AP", ItemClassification.progression_skip_balancing, 101),
 
 }
 filler_weights: Dict[str, int] = {

@@ -13,10 +13,12 @@ logger = logging.getLogger("AM2R")
 
 def launch_client():
     from .Client import launch
+    from .Resplashed_Client import launch
     launch_subprocess(launch, name="AM2RClient")
 
 
 components.append(Component("AM2R Client", "AM2RClient", func=launch_client, component_type=Type.CLIENT))
+components.append(Component("AM2R Resplashed Client", "AM2RResplashedClient", func=launch_client, component_type=Type.CLIENT))
 
 
 class AM2RWeb(WebWorld):

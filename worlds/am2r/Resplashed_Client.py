@@ -53,6 +53,7 @@ Septoggs (as they feel safe next to the durable Elders)")
         logger.info("Programmers: Ehseezed and DodoBirb")
         logger.info("Additional help by: Scungip")
         logger.info("Sprite Artists: Abyssal Creature, Mimolette")
+        logger.info("Resplashed by: The AM2R Team, including but")
         logger.info("Special Thanks to all the beta testers and the AM2R Community Updates Team")
         logger.info("And Variable who was conned into becoming a programmer to fix issues he found")
 
@@ -110,6 +111,11 @@ def get_payload(ctx: AM2RContext):
         return json.dumps({
             "cmd": "items", "items": items_to_give 
         })
+
+    # 0b000 = bad
+    # 0b001 = good
+    # 0b010 = progression
+    # 0b100 = trap
     
     if ctx.client_requesting_scouts:
         itemdict = {}
@@ -118,10 +124,12 @@ def get_payload(ctx: AM2RContext):
             if netitem.item in item_id_to_game_id:
                 if netitem.flags & 0b100 != 0:
                     gameitem = random.randint(0, 19)
-                else:  # I am really tempted to add a datetime check here to see if its april first
+                else:
                     gameitem = item_id_to_game_id[netitem.item]
+            elif netitem.flags & 0b010 == 0:
+                gameitem = 100 # colorful AP generic item
             else:
-                gameitem = 20
+                gameitem = 101 # plain AP generic item
             itemdict[gamelocation] = gameitem
         print("Sending")
         return json.dumps({
