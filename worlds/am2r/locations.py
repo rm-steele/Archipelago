@@ -152,7 +152,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
         LocationData("Industrial Complex Nest", "Industrial Nest: Mohwir", 108680115, 328, lambda state: logic.AM2R_can_bomb(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
         LocationData("Industrial Complex Nest", "Industrial Nest: Chirn", 108680116, 329, lambda state: logic.AM2R_can_bomb(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
         LocationData("Industrial Complex Nest", "Industrial Nest: BHHarbinger", 108680117, 330, lambda state: logic.AM2R_can_bomb(state) and logic.AM2R_can_schmove(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
-        LocationData("Industrial Complex Nest", "Industrial Nest: Steele", 108680118, 331, lambda state: logic.AM2R_can_bomb(state) and logic.AM2R_can_schmove(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
+        LocationData("Industrial Complex Nest", "Industrial Nest: AbyssalCreature", 108680118, 331, lambda state: logic.AM2R_can_bomb(state) and logic.AM2R_can_schmove(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
 
         LocationData("Pre Industrial Complex", "Industrial Complex: Sisyphus", 108680119, 323, logic.AM2R_can_spider),  # Mimo
         LocationData("Pre Industrial Complex", "Industrial Complex: And then there\'s this Asshole", 108680120, 332, logic.AM2R_can_spider),  # ANX
