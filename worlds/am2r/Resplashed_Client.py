@@ -7,6 +7,7 @@ from asyncio import StreamReader, StreamWriter
 from typing import List
 from worlds.am2r.items import item_table
 from worlds.am2r.locations import get_location_datas
+import options
 
 import Utils
 from Utils import async_start
@@ -104,6 +105,8 @@ class AM2RContext(CommonContext):
 
 
 def get_payload(ctx: AM2RContext):
+    global upper, lower
+
     items_to_give = [item_id_to_game_id[item.item] for item in ctx.items_received if item.item in item_id_to_game_id]
     if not ctx.locations_info:
         locations = [location.code for location in get_location_datas(None, None) if location.code is not None]
@@ -112,18 +115,39 @@ def get_payload(ctx: AM2RContext):
             "cmd": "items", "items": items_to_give 
         })
 
+    match options.TrapSprites:
+        case options.TrapSprites.option_All:
+            upper = 1
+            lower = 0
+        case options.TrapSprites.option_Retro:
+            upper = 1
+            lower = 0
+        case options.TrapSprites.option_Super:
+            upper = 1
+            lower = 0
+        case options.TrapSprites.option_Chiny:
+            upper = 1
+            lower = 0
+        case options.TrapSprites.option_Tricky:
+            upper = 1
+            lower = 0
+        case options.TrapSprites.option_Evil:
+            upper = 1
+            lower = 0
+
+    # 0b111 = full remote
     # 0b000 = bad
     # 0b001 = good
     # 0b010 = progression
     # 0b100 = trap
-    
+
     if ctx.client_requesting_scouts:
         itemdict = {}
         for locationid, netitem in ctx.locations_info.items():
             gamelocation = location_id_to_game_id[locationid]
             if netitem.item in item_id_to_game_id:
                 if netitem.flags & 0b100 != 0:
-                    gameitem = random.randint(0, 19)
+                    gameitem = random.randint(lower, upper)
                 else:
                     gameitem = item_id_to_game_id[netitem.item]
             elif netitem.flags & 0b010 == 0:

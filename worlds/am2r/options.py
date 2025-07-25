@@ -77,10 +77,11 @@ class TrapSprites(Choice):
     display_name = "Item Sprites"
     default = 0
     option_All = 0
-    option_Evil = 1
-    option_Chiny = 2
-    option_Icons = 3
-    # option_lies = 4
+    option_Retro = 1 # sprites styled from Fusion and ZM
+    option_Super = 2 # sprites styled from Super Metroid
+    option_Chiny = 3
+    option_Tricky = 4
+    option_Evil = 5
 
 
 #class StartingWeapons(Choice):
