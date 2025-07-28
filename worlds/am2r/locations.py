@@ -82,9 +82,9 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
 
         LocationData("Industrial Complex", "Industrial Complex: Conveyor Belt Room",  108680051, 205, lambda state: state.has("Speed Booster", player)),
         LocationData("Industrial Complex", "Industrial Complex: Doom Treadmill",  108680052, 201, lambda state: state.has("Speed Booster", player) and logic.AM2R_can_bomb(state)),
-        LocationData("Industrial Complex", "Industrial Complex: Complex Hub Shinespark",  108680053, 208, lambda state: state.has("Speed Booster", player)),
-        LocationData("Industrial Complex", "Industrial Complex: Complex Hub in the Floor", 108680054, 207, lambda state: state.has("Super Missile", player) and state.has("Speed Booster", player)),
-        LocationData("Industrial Complex", "Industrial Complex: Skippy Reward",  108680055, 206, lambda state: state.has("Super Missile", player) and state.has("Speed Booster", player)),
+        LocationData("Industrial Complex", "Industrial Complex: Complex Hub Shinespark",  108680053, 208, lambda state: state.has("Speed Booster", player) and logic.AM2R_can_bomb(state)),
+        LocationData("Industrial Complex", "Industrial Complex: Complex Hub in the Floor", 108680054, 207, lambda state: state.has("Super Missile", player) and state.has("Speed Booster", player) and logic.AM2R_can_bomb(state)),
+        LocationData("Industrial Complex", "Industrial Complex: Skippy Reward",  108680055, 206, lambda state: state.has("Super Missile", player) and state.has("Speed Booster", player) and logic.AM2R_can_bomb(state)),
 
         LocationData("GFS Thoth", "GFS Thoth: Research Camp",  108680056, 215),
         LocationData("GFS Thoth", "GFS Thoth: Hornoad Room",  108680057, 58, lambda state: state.has("Power Bomb", player)),
@@ -139,7 +139,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
 
         LocationData("Main Caves", "Main Caves: Freddy Fazbear", 108680105, 315),  # Epsilon
         LocationData("Hydro Station", "Hydro Station: Turbine Terror", 108680106, 316),  # Xander
-        LocationData("Hydro Station", "Hydro Station: The Lookout", 108680107, 318, lambda state: state.has("Speed Booster", player) or logic.AM2R_can_schmove),  # Xander
+        LocationData("Hydro Station", "Hydro Station: The Lookout", 108680107, 318, lambda state: state.has("Speed Booster", player) or logic.AM2R_can_schmove(state)),  # Xander
         LocationData("Hydro Station", "Hydro Station: Recent Guardian", 108680108, 317),  # ANX
 
         LocationData("Hydro Nest", "Hydro Nest: EnderMahan", 108680109, 319),

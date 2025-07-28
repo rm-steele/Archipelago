@@ -193,7 +193,7 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     connect(world, player, "Pipe Hell R", "Pipe Hell Outside", lambda state: state.can_reach("Pipe Hell Outside", "Region", player)),
 
     connect(world, player, "Screw Attack", "Pipe Hell R", lambda state: state.has("Screw Attack", player) and logic.AM2R_can_schmove(state)),
-    connect(world, player, "Pipe Hell R", "Screw Attack", logic.AM2R_can_spider),
+    connect(world, player, "Pipe Hell R", "Screw Attack", lambda state: state.has("Screw Attack", player) and logic.AM2R_can_spider(state)),
 
     connect(world, player, "Underwater Distribution Center", "Underwater Distro Connection", lambda state: state.has("Ice Beam", player) or (state.has("Gravity Suit", player) and state.has("Speed Booster", player))),
     connect(world, player, "Underwater Distro Connection", "Underwater Distribution Center", lambda state: state.has("Ice Beam", player) or (state.has("Gravity Suit", player) and state.has("Speed Booster", player))),
