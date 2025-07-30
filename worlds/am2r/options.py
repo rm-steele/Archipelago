@@ -1,6 +1,6 @@
 from typing import Union, List, Dict
 from BaseClasses import MultiWorld
-from Options import AssembleOptions, Choice, DeathLink, DefaultOnToggle, Range, StartInventoryPool, Toggle
+from Options import AssembleOptions, Choice, DeathLink, DefaultOnToggle, Range, StartInventoryPool, Toggle, Visibility
 
 
 class MetroidsRequired(Range):
@@ -72,8 +72,14 @@ class RemoveOHKOTrap(Toggle):
 
 
 class TrapSprites(Choice):
-    """Changes Item Sprites.  Does not affect gameplay
-    Sprite Authors appear in the item description"""
+    """Change what sprites are used for traps.
+    Retro: Sprites styled from Fusion and Zero Mission
+    Super: Sprites styled from Super Metroid
+    Chiny: Uses the "chiny tozo" sprites
+    Tricky: Uses Sprites that are "tricky" to distinguish from non traps
+    Evil: Uses Sprites that are "evil" to distinguish from non traps
+    Vanilla: Uses the vanilla sprites from AM2R
+    """
     display_name = "Item Sprites"
     default = 0
     option_All = 0
@@ -82,44 +88,12 @@ class TrapSprites(Choice):
     option_Chiny = 3
     option_Tricky = 4
     option_Evil = 5
+    option_Vanilla = 6
 
-
-#class StartingWeapons(Choice):
-#    """Removes your Arm Cannon and makes it a findable item"""
-#    display_name = "Starting Weapons"
-#    default = 0
-#    option_normal = 0
-#    option_missiles_only = 1
-#    option_beam_only = 2
-#    option_none = 3
-
-
-#class RandomizeBaby(Toggle):
-#    """Randomizes the baby metroid as a cosmetic find"""
-#    display_name = "Randomize Baby"
-
-
-#class AreaRando(Choice):
-#    """Activates Area Randomization and or Boss Randomization, also activates rolling saves as softlock prevention
-#    Area Randomizer will shuffle various Areas arround in order to create a new expierence
-#    Boss Randomization randomizes Arachnus, Torizo Ascended, and Genesis with each other also then randomizes
-#    Temple Guardian, Tester and Serris
-#    Both activates Both independently on their own"""
-#    display_name = "Area Randomizer"
-#
-#    default = 0
-#    option_disabled = 0
-#    option_area = 1
-#    option_boss = 2
-#    option_both = 3
-
-
-#  class IceMissiles(Toggle):
-#  """Changes missiles to have Ice properties
-#  Does not account for jumping off enemies
-#  only counts as being able to freeze meboids and metroid larva"""
-#  display_name = "Ice Missiles"
-
+class Tozos(Toggle):
+    """Enable Tozo items"""
+    display_name = "Tozo Items"
+    Visibility = Visibility.none
 
 AM2R_options: Dict[str, AssembleOptions] = {
     "MetroidsRequired": MetroidsRequired,
@@ -133,10 +107,7 @@ AM2R_options: Dict[str, AssembleOptions] = {
     "RemoveTouhouTrap": RemoveTouhouTrap,
     "RemoveOHKOTrap": RemoveOHKOTrap,
     "TrapSprites": TrapSprites,
-    #  "Starting Weapons": StartingWeapons,
-    #  "Randomize Baby", RandomizeBaby
-    #  "Area Rando": AreaRando,
-    #  "Ice Missiles":  IceMissiles,
+    "Tozos": Tozos,
     #  "DeathLink": DeathLink,
 }
 

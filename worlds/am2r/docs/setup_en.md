@@ -2,7 +2,13 @@
 
 ## Required Software
 - [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases/latest)
-- [AM2R Multiworld Mod](https://github.com/DodoBirby/AM2R-Multiworld-Mod/releases/latest) or [AM2R Multiworld Mod: Resplashed](https://github.com/AbyssalCreature/AM2R-Re-Splashed/releases/tag/v1.0.0-MW)
+- Legacy Mods (Old Trap Behavior)
+  - [AM2R Multiworld](https://github.com/DodoBirby/AM2R-Multiworld-Mod/releases/latest) 
+  - [AM2R Multisquared](https://github.com/rm-steele/AM2R-Multisquared/releases/tag/1.0.0)
+  - [AM2R Multiworld: Resplashed](https://github.com/AbyssalCreature/AM2R-Re-Splashed/releases/tag/v1.3.2-M)
+- Current Mods (New Trap Behavior)
+  - [AM2R Multisquared](https://github.com/rm-steele/AM2R-Multisquared/releases/latest)
+  - [AM2R Multiworld: Resplashed](https://github.com/AbyssalCreature/AM2R-Re-Splashed/releases?q=multiworld&expanded=true)
 - [AM2R Launcher](https://github.com/AM2R-Community-Developers/AM2RLauncher/releases/latest)
 - Your self provided copy of AM2R 1.1 for the launcher
 

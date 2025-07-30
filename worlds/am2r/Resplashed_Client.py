@@ -4,10 +4,11 @@ import json
 import time
 import random
 from asyncio import StreamReader, StreamWriter
+from random import randint
 from typing import List
 from worlds.am2r.items import item_table
 from worlds.am2r.locations import get_location_datas
-import options
+import worlds.am2r.options as options
 
 import Utils
 from Utils import async_start
@@ -53,8 +54,11 @@ Septoggs (as they feel safe next to the durable Elders)")
         logger.info("AM2R Multiworld Randomizer brought to you by:")
         logger.info("Programmers: Ehseezed and DodoBirb")
         logger.info("Additional help by: Scungip")
+        logger.info("Initial Multiworld Mod by: DodoBirb")
+        logger.info("Resplashed Mod by: Abyssal Creature, Mystical")
+        logger.info("Multisquared Mod by: Steele")
         logger.info("Sprite Artists: Abyssal Creature, Mimolette")
-        logger.info("Resplashed by: The AM2R Team, including but")
+        logger.info("New Trap Sprites by: Mystical")
         logger.info("Special Thanks to all the beta testers and the AM2R Community Updates Team")
         logger.info("And Variable who was conned into becoming a programmer to fix issues he found")
 
@@ -134,6 +138,9 @@ def get_payload(ctx: AM2RContext):
         case options.TrapSprites.option_Evil:
             upper = 1
             lower = 0
+        case _:
+            upper = 15
+            lower = 0
 
     # 0b111 = full remote
     # 0b000 = bad
@@ -145,15 +152,27 @@ def get_payload(ctx: AM2RContext):
         itemdict = {}
         for locationid, netitem in ctx.locations_info.items():
             gamelocation = location_id_to_game_id[locationid]
-            if netitem.item in item_id_to_game_id:
-                if netitem.flags & 0b100 != 0:
-                    gameitem = random.randint(lower, upper)
+            if options.Tozos:
+                if netitem.item in item_id_to_game_id:
+                    if netitem.flags & 0b100 != 0:
+                        gameitem = random.randint(lower, upper)
+                    else:
+                        gameitem = item_id_to_game_id[netitem.item] + 20
+                elif netitem.flags & 0b010 == 0:
+                    gameitem = 102 #
                 else:
-                    gameitem = item_id_to_game_id[netitem.item]
-            elif netitem.flags & 0b010 == 0:
-                gameitem = 100 # colorful AP generic item
+                    gameitem = 103
+
             else:
-                gameitem = 101 # plain AP generic item
+                if netitem.item in item_id_to_game_id:
+                    if netitem.flags & 0b100 != 0:
+                        gameitem = random.randint(lower, upper)
+                    else:
+                        gameitem = item_id_to_game_id[netitem.item]
+                elif netitem.flags & 0b010 == 0:
+                    gameitem = 100
+                else:
+                    gameitem = 101
             itemdict[gamelocation] = gameitem
         print("Sending")
         return json.dumps({

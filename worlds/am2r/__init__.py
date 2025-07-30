@@ -17,8 +17,8 @@ def launch_client():
     launch_subprocess(launch, name="AM2RClient")
 
 
-components.append(Component("AM2R Client", "AM2RClient", func=launch_client, component_type=Type.CLIENT))
-components.append(Component("AM2R Resplashed Client", "AM2RResplashedClient", func=launch_client, component_type=Type.CLIENT))
+components.append(Component("Legacy AM2R Client", "AM2RClient", func=launch_client, component_type=Type.CLIENT))
+components.append(Component("AM2R Client", "AM2RResplashedClient", func=launch_client, component_type=Type.CLIENT))
 
 
 class AM2RWeb(WebWorld):
