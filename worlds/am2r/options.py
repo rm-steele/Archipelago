@@ -73,7 +73,7 @@ class RemoveOHKOTrap(Toggle):
 
 class TrapSprites(Choice):
     """Change what sprites are used for traps.
-    Retro: Sprites styled from Fusion and Zero Mission
+    Retro: Sprites styled from Fusion, Zero Mission and Super Metroid
     Super: Sprites styled from Super Metroid
     Chiny: Uses the "chiny tozo" sprites
     Tricky: Uses Sprites that are "tricky" to distinguish from non traps
@@ -83,12 +83,11 @@ class TrapSprites(Choice):
     display_name = "Item Sprites"
     default = 0
     option_All = 0
-    option_Retro = 1 # sprites styled from Fusion and ZM
-    option_Super = 2 # sprites styled from Super Metroid
-    option_Chiny = 3
-    option_Tricky = 4
-    option_Evil = 5
-    option_Vanilla = 6
+    option_Retro = 1
+    option_Chiny = 2
+    option_Tricky = 3
+    option_Evil = 4
+    option_Vanilla = 5
 
 class Tozos(Toggle):
     """Enable Tozo items"""

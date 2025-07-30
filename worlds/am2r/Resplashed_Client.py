@@ -121,26 +121,28 @@ def get_payload(ctx: AM2RContext):
 
     match options.TrapSprites:
         case options.TrapSprites.option_All:
-            upper = 1
-            lower = 0
-        case options.TrapSprites.option_Retro:
-            upper = 1
-            lower = 0
-        case options.TrapSprites.option_Super:
-            upper = 1
-            lower = 0
+            upper = 20
+            lower = 82
         case options.TrapSprites.option_Chiny:
-            upper = 1
-            lower = 0
+            upper = 38
+            lower = 20
+        case options.TrapSprites.option_Retro:
+            upper = 47
+            lower = 40
         case options.TrapSprites.option_Tricky:
-            upper = 1
-            lower = 0
+            upper = 62
+            lower = 50
         case options.TrapSprites.option_Evil:
-            upper = 1
+            upper = 82
+            lower = 70
+        case options.TrapSprites.option_Vanilla:
+            upper = 15
             lower = 0
         case _:
             upper = 15
             lower = 0
+
+    non_ids = [48,49,63,64,65,66,67,68,69]
 
     # 0b111 = full remote
     # 0b000 = bad
@@ -151,6 +153,12 @@ def get_payload(ctx: AM2RContext):
     if ctx.client_requesting_scouts:
         itemdict = {}
         for locationid, netitem in ctx.locations_info.items():
+
+            itemid = randint(lower, upper)
+            while itemid in non_ids:
+                itemid = randint(lower, upper)
+
+
             gamelocation = location_id_to_game_id[locationid]
             if options.Tozos:
                 if netitem.item in item_id_to_game_id:
