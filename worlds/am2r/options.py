@@ -1,6 +1,8 @@
 from typing import Union, List, Dict
-from BaseClasses import MultiWorld
-from Options import AssembleOptions, Choice, DeathLink, DefaultOnToggle, Range, StartInventoryPool, Toggle, Visibility
+from Options import Choice, Range, Toggle, PerGameCommonOptions
+from dataclasses import dataclass
+
+from . import AM2RWorld
 
 
 class MetroidsRequired(Range):
@@ -92,30 +94,29 @@ class TrapSprites(Choice):
 class Tozos(Toggle):
     """Enable Tozo items"""
     display_name = "Tozo Items"
-    Visibility = Visibility.none
 
-AM2R_options: Dict[str, AssembleOptions] = {
-    "MetroidsRequired": MetroidsRequired,
-    "MetroidsInPool": MetroidsInPool,
-    "LocationSettings": LocationSettings,
-    "TrapFillPercentage": TrapFillPercentage,
-    "RemoveFloodTrap": RemoveFloodTrap,
-    "RemoveTossTrap": RemoveTossTrap,
-    "RemoveShortBeam": RemoveShortBeam,
-    "RemoveEMPTrap": RemoveEMPTrap,
-    "RemoveTouhouTrap": RemoveTouhouTrap,
-    "RemoveOHKOTrap": RemoveOHKOTrap,
-    "TrapSprites": TrapSprites,
-    "Tozos": Tozos,
-    #  "DeathLink": DeathLink,
-}
+@dataclass
+class AM2ROptions(PerGameCommonOptions):
+    MetroidsRequired: MetroidsRequired
+    MetroidsInPool: MetroidsInPool
+    LocationSettings: LocationSettings
+    TrapFillPercentage: TrapFillPercentage
+    RemoveFloodTrap: RemoveFloodTrap
+    RemoveTossTrap: RemoveTossTrap
+    RemoveShortBeam: RemoveShortBeam
+    RemoveEMPTrap: RemoveEMPTrap
+    RemoveTouhouTrap: RemoveTouhouTrap
+    RemoveOHKOTrap: RemoveOHKOTrap
+    TrapSprites: TrapSprites
+    Tozos: Tozos
+    #  DeathLink: DeathLink
 
 
-def is_option_enabled(world: MultiWorld, player: int, name: str) -> bool:
+def is_option_enabled(world: AM2RWorld, player: int, name: str) -> bool:
     return get_option_value(world, player, name) > 0
 
 
-def get_option_value(world: MultiWorld, player: int, name: str) -> Union[int, Dict, List]:
+def get_option_value(world: AM2RWorld, player: int, name: str) -> Union[int, Dict, List]:
     option = getattr(world, name, None)
     if option is None:
         return 0

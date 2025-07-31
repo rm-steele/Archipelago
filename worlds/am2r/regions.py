@@ -1,5 +1,5 @@
 from typing import List, Set, Dict, Tuple, Optional, Callable, NamedTuple
-from BaseClasses import CollectionState, MultiWorld, Region, Entrance, Location
+from BaseClasses import CollectionState, MultiWorld, Region, Location
 from .locations import LocationData, get_location_datas
 from .rules import AM2RLogic
 

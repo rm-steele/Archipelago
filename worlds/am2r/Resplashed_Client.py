@@ -8,7 +8,7 @@ from random import randint
 from typing import List
 from worlds.am2r.items import item_table
 from worlds.am2r.locations import get_location_datas
-import worlds.am2r.options as options
+from .options import AM2ROptions as options
 
 import Utils
 from Utils import async_start
@@ -123,6 +123,10 @@ def get_payload(ctx: AM2RContext):
             "cmd": "items", "items": items_to_give 
         })
 
+    print(f'{ctx.Tozos}\n{ctx.TrapSprites}')
+    print(f'{options.Tozos}\n{options.TrapSprites}')
+    print(f'All: {options.TrapSprites.option_All}\nChiny: {options.TrapSprites.option_Chiny}\nRetro: {options.TrapSprites.option_Retro}\nTricky: {options.TrapSprites.option_Tricky}\nEvil: {options.TrapSprites.option_Evil}\nVanilla: {options.TrapSprites.option_Vanilla}')
+
     match ctx.TrapSprites:
         case options.TrapSprites.option_All:
             upper = 20
@@ -160,11 +164,12 @@ def get_payload(ctx: AM2RContext):
 
             itemid = randint(lower, upper)
             while itemid in non_ids:
+                print("extremely loud incorrect buzzer")
                 itemid = randint(lower, upper)
 
 
             gamelocation = location_id_to_game_id[locationid]
-            if options.Tozos:
+            if ctx.Tozos:
                 if netitem.item in item_id_to_game_id:
                     if netitem.flags & 0b100 != 0:
                         gameitem = random.randint(lower, upper)

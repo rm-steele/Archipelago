@@ -1,23 +1,26 @@
-import types
 import logging
 from typing import Dict
 from .items import item_table, item_name_groups, item_name_to_id, create_item, create_all_items
 from .locations import get_location_datas, EventId
 from .regions import create_regions_and_locations
 from BaseClasses import Tutorial, Item, ItemClassification
-from .options import AM2R_options, LocationSettings
+from .options import AM2ROptions, LocationSettings
 from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import Component, components, Type, launch_subprocess
 
 logger = logging.getLogger("AM2R")
 
 def launch_client():
-    from .Client import launch
     from .Resplashed_Client import launch
     launch_subprocess(launch, name="AM2RClient")
 
 
-components.append(Component("Legacy AM2R Client", "AM2RClient", func=launch_client, component_type=Type.CLIENT))
+def launch_legacy_client():
+    from .Client import launch
+    launch_subprocess(launch, name="AM2RClient")
+
+
+components.append(Component("Legacy AM2R Client", "AM2RClient", func=launch_legacy_client, component_type=Type.CLIENT))
 components.append(Component("AM2R Client", "AM2RResplashedClient", func=launch_client, component_type=Type.CLIENT))
 
 
@@ -40,7 +43,8 @@ class AM2RWorld(World):
     items from there as well.
     """
     game = "AM2R"
-    option_definitions = AM2R_options
+    options_dataclass = AM2ROptions
+    options = AM2ROptions
     web = AM2RWeb()
 
     item_name_to_id = item_name_to_id
@@ -50,7 +54,21 @@ class AM2RWorld(World):
     data_version = 1
 
     def fill_slot_data(self) -> Dict[str, object]:
-        return {name: getattr(self.multiworld, name)[self.player].value for name in self.option_definitions}
+        return {
+            "MetroidsRequired": self.options.MetroidsRequired.value,
+            "MetroidsInPool": self.options.MetroidsInPool.value,
+            "LocationSettings": self.options.LocationSettings.value,
+            "TrapFillPercentage": self.options.TrapFillPercentage.value,
+            "RemoveFloodTrap": self.options.RemoveFloodTrap.value,
+            "RemoveTossTrap": self.options.RemoveTossTrap.value,
+            "RemoveShortBeam": self.options.RemoveShortBeam.value,
+            "RemoveEMPTrap": self.options.RemoveEMPTrap.value,
+            "RemoveTouhouTrap": self.options.RemoveTouhouTrap.value,
+            "RemoveOHKOTrap": self.options.RemoveOHKOTrap.value,
+            "TrapSprites": self.options.TrapSprites.value,
+            "Tozos": self.options.Tozos.value,
+            # "DeathLink": self.options.DeathLink.value,
+        }
 
     def create_regions(self) -> None:
         create_regions_and_locations(self.multiworld, self.player)
@@ -115,11 +133,11 @@ class AM2RWorld(World):
                 self.multiworld.get_location("Distribution Center: Gamma Bros Luigi", self.player).place_locked_item(self.create_item("Metroid"))
 
         if self.options.LocationSettings == LocationSettings.option_items_no_A6 or self.options.LocationSettings == LocationSettings.option_add_metroids_no_A6:
-            self.multiworld.exclude_locations[self.player].value.add("Deep Caves: Drivel Ballspark")
-            self.multiworld.exclude_locations[self.player].value.add("Deep Caves: Ramulken Lava Pool")
-            self.multiworld.exclude_locations[self.player].value.add("Deep Caves: After Omega")
+            self.options.exclude_locations.value.add("Deep Caves: Drivel Ballspark")
+            self.options.exclude_locations.value.add("Deep Caves: Ramulken Lava Pool")
+            self.options.exclude_locations.value.add("Deep Caves: After Omega")
 
-        create_all_items(self.multiworld, self.player)
+        items.create_all_items(self)
 
     def set_rules(self) -> None:
         self.multiworld.completion_condition[self.player] = lambda state: state.has("The Galaxy is at Peace", self.player)

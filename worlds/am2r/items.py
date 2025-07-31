@@ -1,10 +1,14 @@
 import itertools
 from collections import Counter
-from typing import Dict, List, NamedTuple, Set
+from typing import Dict, List, NamedTuple, Set, TYPE_CHECKING
 
-from BaseClasses import Item, ItemClassification, MultiWorld
-from .options import LocationSettings ,MetroidsInPool, MetroidsRequired, get_option_value, TrapFillPercentage, RemoveFloodTrap, RemoveTossTrap, RemoveShortBeam, RemoveEMPTrap, RemoveOHKOTrap, RemoveTouhouTrap
+from BaseClasses import Item, ItemClassification
+from .options import LocationSettings ,MetroidsInPool, MetroidsRequired, get_option_value
 
+if TYPE_CHECKING:
+    from . import AM2RWorld
+else:
+    AM2RWorld = object
 
 class ItemData(NamedTuple):
     code: int
@@ -46,63 +50,64 @@ def create_metroid_items(MetroidsRequired: MetroidsRequired, MetroidsInPool: Met
     return ["Metroid" for _ in range(metroid_count)]
 
 
-def create_trap_items(multiworld: MultiWorld, player: int, locations_to_trap: int) -> List[str]:
+def create_trap_items(world: AM2RWorld, player: int, locations_to_trap: int) -> List[str]:
     trap_pool = trap_weights.copy()
 
-    if multiworld.RemoveFloodTrap[player].value == 1:
+    if world.options.RemoveFloodTrap.value == 1:
         del trap_pool["Flood Trap"]
 
-    if multiworld.RemoveTossTrap[player].value == 1:
+    if world.options.RemoveTossTrap.value == 1:
         del trap_pool["Big Toss Trap"]
 
-    if multiworld.RemoveShortBeam[player].value == 1:
+    if world.options.RemoveShortBeam.value == 1:
         del trap_pool["Short Beam"]
 
-    if multiworld.RemoveEMPTrap[player].value == 1:
+    if world.options.RemoveEMPTrap.value == 1:
         del trap_pool["EMP Trap"]
     
-    if multiworld.RemoveTouhouTrap[player].value == 1:
+    if world.options.RemoveTouhouTrap.value == 1:
         del trap_pool["Touhou Trap"]
 
-    if multiworld.RemoveOHKOTrap[player].value == 1:
+    if world.options.RemoveOHKOTrap.value == 1:
         del trap_pool["OHKO Trap"]
 
-    return multiworld.random.choices(
+    return world.random.choices(
         population=list(trap_pool.keys()),
         weights=list(trap_pool.values()),
         k=locations_to_trap
     )
 
 
-def create_random_items(multiworld: MultiWorld, player: int, random_count: int) -> List[str]:
+def create_random_items(world: AM2RWorld, random_count: int) -> List[str]:
     filler_pool = filler_weights.copy()
 
-    return multiworld.random.choices(
+    return world.random.choices(
         population=list(filler_pool.keys()),
         weights=list(filler_pool.values()),
         k=random_count
     )
 
 
-def create_all_items(multiworld: MultiWorld, player: int) -> None:
-    sum_locations = len(multiworld.get_unfilled_locations(player))
+def create_all_items(world: AM2RWorld) -> None:
+    player = world.player
+    sum_locations = len(world.multiworld.get_unfilled_locations(player))
 
     itempool = (
         create_fixed_item_pool()
-        + create_metroid_items(multiworld.MetroidsRequired[player], multiworld.MetroidsInPool[player], multiworld.LocationSettings[player])
+        + create_metroid_items(world.options.MetroidsRequired, world.options.MetroidsInPool, world.options.LocationSettings)
     )
 
-    trap_percentage = get_option_value(multiworld, player, "TrapFillPercentage")
+    trap_percentage = get_option_value(world, player, "TrapFillPercentage")
     trap_fill = trap_percentage / 100
 
     random_count = sum_locations - len(itempool)
     locations_to_trap = int(trap_fill * random_count)
-    itempool += create_trap_items(multiworld, player, locations_to_trap)
+    itempool += create_trap_items(world, player, locations_to_trap)
 
     random_count = sum_locations - len(itempool)
-    itempool += create_random_items(multiworld, player, random_count)
+    itempool += create_random_items(world, random_count)
 
-    multiworld.itempool += [create_item(player, name) for name in itempool]
+    world.multiworld.itempool += [create_item(player, name) for name in itempool]
 
 
 item_table: Dict[str, ItemData] = {
