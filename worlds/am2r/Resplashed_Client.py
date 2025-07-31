@@ -77,6 +77,8 @@ class AM2RContext(CommonContext):
         self.received_locscouts = False
         self.metroids_required = 41
         self.client_requesting_scouts = False
+        self.TrapSprites = options.TrapSprites.option_All
+        self.Tozos = False
     
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -103,6 +105,8 @@ class AM2RContext(CommonContext):
     def on_package(self, cmd: str, args: dict):
         if cmd == "Connected":
             self.metroids_required = args["slot_data"]["MetroidsRequired"]
+            self.Tozos = args["slot_data"]["Tozos"]
+            self.TrapSprites = args["slot_data"]["TrapSprites"]
         elif cmd == "LocationInfo":
             logger.info("Received Location Info")
 
@@ -119,7 +123,7 @@ def get_payload(ctx: AM2RContext):
             "cmd": "items", "items": items_to_give 
         })
 
-    match options.TrapSprites:
+    match ctx.TrapSprites:
         case options.TrapSprites.option_All:
             upper = 20
             lower = 82
