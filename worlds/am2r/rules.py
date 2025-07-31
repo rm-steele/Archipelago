@@ -1,6 +1,12 @@
+from typing import TYPE_CHECKING
+
 from BaseClasses import CollectionState
-from . import AM2RWorld
 from .options import get_option_value
+
+if TYPE_CHECKING:
+    from . import AM2RWorld
+else:
+    AM2RWorld = object
 
 
 class AM2RLogic:

@@ -1,8 +1,11 @@
-from typing import Union, List, Dict
+from typing import Union, List, Dict, TYPE_CHECKING
 from Options import Choice, Range, Toggle, PerGameCommonOptions
 from dataclasses import dataclass
 
-from . import AM2RWorld
+if TYPE_CHECKING:
+    from . import AM2RWorld
+else:
+    AM2RWorld = object
 
 
 class MetroidsRequired(Range):
