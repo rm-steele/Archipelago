@@ -1,7 +1,12 @@
-from typing import List, Set, Dict, Tuple, Optional, Callable, NamedTuple
-from BaseClasses import CollectionState, MultiWorld, Region, Location
+from typing import List, Set, Dict, Tuple, Optional, Callable, NamedTuple, TYPE_CHECKING
+from BaseClasses import CollectionState, Region, Location
 from .locations import LocationData, get_location_datas
 from .rules import AM2RLogic
+
+if TYPE_CHECKING:
+    from . import AM2RWorld
+else:
+    AM2RWorld = object
 
 EventId: Optional[int] = None
 
@@ -13,7 +18,7 @@ class LocationData(NamedTuple):
     rule: Callable[[CollectionState], bool] = lambda state: True
 
 
-def create_regions_and_locations(world: MultiWorld, player: int):
+def create_regions_and_locations(world: AM2RWorld, player: int):
     location_datas: Tuple[LocationData] = get_location_datas(world, player)
 
     locations_per_region: Dict[str, List[LocationData]] = split_location_datas_per_region(location_datas)
@@ -233,7 +238,7 @@ def create_location(player: int, location_data: LocationData, region: Region) ->
     return location
 
 
-def create_region(world: MultiWorld, player: int, locations_per_region: Dict[str, List[LocationData]],name: str) -> Region:
+def create_region(world: AM2RWorld, player: int, locations_per_region: Dict[str, List[LocationData]],name: str) -> Region:
     region = Region(name, player, world)
 
     if name in locations_per_region:
@@ -244,7 +249,7 @@ def create_region(world: MultiWorld, player: int, locations_per_region: Dict[str
     return region
 
 
-def connect(world: MultiWorld, player: int, source: str, target: str,
+def connect(world: AM2RWorld, player: int, source: str, target: str,
             rule: Optional[Callable[[CollectionState], bool]] = None):
     sourceRegion = world.get_region(source, player)
     targetRegion = world.get_region(target, player)

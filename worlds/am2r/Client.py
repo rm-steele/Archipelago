@@ -1,10 +1,7 @@
 import asyncio
-import copy
 import json
-import time
 import random
 from asyncio import StreamReader, StreamWriter
-from typing import List
 from worlds.am2r.items import item_table
 from worlds.am2r.locations import get_location_datas
 

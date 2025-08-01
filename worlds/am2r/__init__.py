@@ -43,8 +43,9 @@ class AM2RWorld(World):
     items from there as well.
     """
     game = "AM2R"
+    options: AM2ROptions
     options_dataclass = AM2ROptions
-    options = AM2ROptions
+
     web = AM2RWeb()
 
     item_name_to_id = item_name_to_id

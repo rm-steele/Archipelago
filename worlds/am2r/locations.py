@@ -1,6 +1,11 @@
-from typing import List, Optional, Callable, NamedTuple
-from BaseClasses import MultiWorld, CollectionState
+from typing import List, Optional, Callable, NamedTuple, TYPE_CHECKING
+from BaseClasses import CollectionState
 from .rules import AM2RLogic
+
+if TYPE_CHECKING:
+    from . import AM2RWorld
+else:
+    AM2RWorld = object
 
 
 EventId: Optional[int] = None
@@ -13,7 +18,7 @@ class LocationData(NamedTuple):
     game_id: int = 0
     rule: Callable[[CollectionState], bool] = lambda state: True
 
-def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
+def get_location_datas(world: Optional[AM2RWorld], player: Optional[int]):
     location_table = [LocationData, ...]
     logic = AM2RLogic(world, player)
 

@@ -3,7 +3,7 @@ from collections import Counter
 from typing import Dict, List, NamedTuple, Set, TYPE_CHECKING
 
 from BaseClasses import Item, ItemClassification
-from .options import LocationSettings ,MetroidsInPool, MetroidsRequired, get_option_value
+from .options import LocationSettings ,MetroidsInPool, MetroidsRequired
 
 if TYPE_CHECKING:
     from . import AM2RWorld
@@ -50,7 +50,7 @@ def create_metroid_items(MetroidsRequired: MetroidsRequired, MetroidsInPool: Met
     return ["Metroid" for _ in range(metroid_count)]
 
 
-def create_trap_items(world: AM2RWorld, player: int, locations_to_trap: int) -> List[str]:
+def create_trap_items(world: AM2RWorld, locations_to_trap: int) -> List[str]:
     trap_pool = trap_weights.copy()
 
     if world.options.RemoveFloodTrap.value == 1:
@@ -97,12 +97,12 @@ def create_all_items(world: AM2RWorld) -> None:
         + create_metroid_items(world.options.MetroidsRequired, world.options.MetroidsInPool, world.options.LocationSettings)
     )
 
-    trap_percentage = get_option_value(world, player, "TrapFillPercentage")
+    trap_percentage = world.options.TrapFillPercentage
     trap_fill = trap_percentage / 100
 
     random_count = sum_locations - len(itempool)
     locations_to_trap = int(trap_fill * random_count)
-    itempool += create_trap_items(world, player, locations_to_trap)
+    itempool += create_trap_items(world, locations_to_trap)
 
     random_count = sum_locations - len(itempool)
     itempool += create_random_items(world, random_count)

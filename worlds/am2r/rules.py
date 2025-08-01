@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING
 
 from BaseClasses import CollectionState
-from .options import get_option_value
 
 if TYPE_CHECKING:
     from . import AM2RWorld

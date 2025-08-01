@@ -113,15 +113,3 @@ class AM2ROptions(PerGameCommonOptions):
     TrapSprites: TrapSprites
     Tozos: Tozos
     #  DeathLink: DeathLink
-
-
-def is_option_enabled(world: AM2RWorld, player: int, name: str) -> bool:
-    return get_option_value(world, player, name) > 0
-
-
-def get_option_value(world: AM2RWorld, player: int, name: str) -> Union[int, Dict, List]:
-    option = getattr(world, name, None)
-    if option is None:
-        return 0
-
-    return option[player].value
