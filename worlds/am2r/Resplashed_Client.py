@@ -77,7 +77,7 @@ class AM2RContext(CommonContext):
         self.received_locscouts = False
         self.metroids_required = 41
         self.client_requesting_scouts = False
-        self.TrapSprites = options.TrapSprites.option_All
+        self.TrapSprites = 0
         self.Tozos = False
     
     async def server_auth(self, password_requested: bool = False):
@@ -123,32 +123,37 @@ def get_payload(ctx: AM2RContext):
             "cmd": "items", "items": items_to_give 
         })
 
-    print(f'{ctx.Tozos}\n{ctx.TrapSprites}')
-    print(f'{options.Tozos}\n{options.TrapSprites}')
-    print(f'All: {options.TrapSprites.option_All}\nChiny: {options.TrapSprites.option_Chiny}\nRetro: {options.TrapSprites.option_Retro}\nTricky: {options.TrapSprites.option_Tricky}\nEvil: {options.TrapSprites.option_Evil}\nVanilla: {options.TrapSprites.option_Vanilla}')
+    print(f'A \n{ctx.Tozos}\n{ctx.TrapSprites}')
 
     match ctx.TrapSprites:
-        case options.TrapSprites.option_All:
-            upper = 20
-            lower = 82
-        case options.TrapSprites.option_Chiny:
+        case 0:
+            upper = 82
+            lower = 20
+            print("Case 0 to 82-20")
+        case 2:
             upper = 38
             lower = 20
-        case options.TrapSprites.option_Retro:
+            print("Case 2 to 20-38")
+        case 1:
             upper = 47
             lower = 40
-        case options.TrapSprites.option_Tricky:
+            print("Case 1 to 40-47")
+        case 3:
             upper = 62
             lower = 50
-        case options.TrapSprites.option_Evil:
+            print("Case 3 to 50-62")
+        case 4:
             upper = 82
             lower = 70
-        case options.TrapSprites.option_Vanilla:
+            print("Case 4 to 70-82")
+        case 5:
             upper = 15
             lower = 0
+            print("Case 5 to 0-15")
         case _:
             upper = 15
             lower = 0
+            print("defaulting to 0-15")
 
     non_ids = [48,49,63,64,65,66,67,68,69]
 
@@ -160,9 +165,14 @@ def get_payload(ctx: AM2RContext):
 
     if ctx.client_requesting_scouts:
         itemdict = {}
+        print("A")
         for locationid, netitem in ctx.locations_info.items():
-
+            print("B")
+            print(lower)
+            print("C")
+            print(upper)
             itemid = randint(lower, upper)
+            print("D: " + str(itemid))
             while itemid in non_ids:
                 print("extremely loud incorrect buzzer")
                 itemid = randint(lower, upper)
@@ -179,7 +189,6 @@ def get_payload(ctx: AM2RContext):
                     gameitem = 102 #
                 else:
                     gameitem = 103
-
             else:
                 if netitem.item in item_id_to_game_id:
                     if netitem.flags & 0b100 != 0:
@@ -195,6 +204,7 @@ def get_payload(ctx: AM2RContext):
         return json.dumps({
             'cmd':"locations", 'items': itemdict, 'metroids': ctx.metroids_required
     })
+    print(json.dumps({"cmd": "items", "items": items_to_give }))
     return json.dumps({
         "cmd": "items", "items": items_to_give 
     })
